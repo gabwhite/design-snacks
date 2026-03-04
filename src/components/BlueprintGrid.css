@@ -4,19 +4,22 @@
 }
 
 .blueprint-grid {
-  display: flex;
-  gap: 0;
+  display: grid;
+  /* grid-template-columns set via inline style */
+  /* header, lane0, lane1, divider, lane2, divider, lane3, lane4, lane5 */
+  grid-template-rows: 40px auto auto 24px auto 24px auto auto auto;
   min-width: fit-content;
 }
 
 /* Swimlane labels */
 .swimlane-labels {
-  flex-shrink: 0;
-  width: 160px;
   position: sticky;
   left: 0;
   z-index: 2;
   background: var(--bg);
+  display: grid;
+  grid-row: 1 / -1;
+  grid-template-rows: subgrid;
 }
 
 .label-header {
@@ -46,10 +49,10 @@
 
 /* Grid columns */
 .grid-column {
-  flex-shrink: 0;
-  width: 200px;
-  min-width: 200px;
   border-right: 1px solid var(--border);
+  display: grid;
+  grid-row: 1 / -1;
+  grid-template-rows: subgrid;
 }
 
 .column-header {
@@ -266,7 +269,7 @@
 
 /* Add column */
 .add-column {
-  flex-shrink: 0;
+  grid-row: 1 / -1;
   display: flex;
   align-items: flex-start;
   padding-top: 40px;

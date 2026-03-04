@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, Fragment } from 'react'
 import {
   DndContext,
   closestCenter,
@@ -57,52 +57,49 @@ function SortableColumn({ column, swimlanes, onUpdateCellItem, onAddCellItem, on
         </button>
       </div>
       {swimlanes.map((lane, laneIdx) => (
-        <CellGroup
-          key={lane}
-          lane={lane}
-          items={column.cells[lane]}
-          onUpdateItem={(itemId, val) => onUpdateCellItem(column.id, lane, itemId, val)}
-          onAddItem={() => onAddCellItem(column.id, lane)}
-          onRemoveItem={(itemId) => onRemoveCellItem(column.id, lane, itemId)}
-          isPainPoint={lane === 'Pain Points'}
-          showInteractionLine={laneIdx === LINE_OF_INTERACTION}
-          showVisibilityLine={laneIdx === LINE_OF_VISIBILITY}
-        />
+        <Fragment key={lane}>
+          {laneIdx === LINE_OF_INTERACTION && (
+            <div className="divider-line interaction-line">
+              <span>Line of Interaction</span>
+            </div>
+          )}
+          {laneIdx === LINE_OF_VISIBILITY && (
+            <div className="divider-line visibility-line">
+              <span>Line of Visibility</span>
+            </div>
+          )}
+          <CellGroup
+            lane={lane}
+            items={column.cells[lane]}
+            onUpdateItem={(itemId, val) => onUpdateCellItem(column.id, lane, itemId, val)}
+            onAddItem={() => onAddCellItem(column.id, lane)}
+            onRemoveItem={(itemId) => onRemoveCellItem(column.id, lane, itemId)}
+            isPainPoint={lane === 'Pain Points'}
+          />
+        </Fragment>
       ))}
     </div>
   )
 }
 
-function CellGroup({ lane, items, onUpdateItem, onAddItem, onRemoveItem, isPainPoint, showInteractionLine, showVisibilityLine }) {
+function CellGroup({ lane, items, onUpdateItem, onAddItem, onRemoveItem, isPainPoint }) {
   return (
-    <>
-      {showInteractionLine && (
-        <div className="divider-line interaction-line">
-          <span>Line of Interaction</span>
-        </div>
-      )}
-      {showVisibilityLine && (
-        <div className="divider-line visibility-line">
-          <span>Line of Visibility</span>
-        </div>
-      )}
-      <div className={`cell-group ${isPainPoint ? 'pain-point-group' : ''}`}>
-        {items.map((item) => (
-          <CellItem
-            key={item.id}
-            item={item}
-            lane={lane}
-            isPainPoint={isPainPoint}
-            canRemove={items.length > 1}
-            onChange={(val) => onUpdateItem(item.id, val)}
-            onRemove={() => onRemoveItem(item.id)}
-          />
-        ))}
-        <button className="add-item-btn" onClick={onAddItem} title={`Add ${lane.toLowerCase()}`}>
-          +
-        </button>
-      </div>
-    </>
+    <div className={`cell-group ${isPainPoint ? 'pain-point-group' : ''}`}>
+      {items.map((item) => (
+        <CellItem
+          key={item.id}
+          item={item}
+          lane={lane}
+          isPainPoint={isPainPoint}
+          canRemove={items.length > 1}
+          onChange={(val) => onUpdateItem(item.id, val)}
+          onRemove={() => onRemoveItem(item.id)}
+        />
+      ))}
+      <button className="add-item-btn" onClick={onAddItem} title={`Add ${lane.toLowerCase()}`}>
+        +
+      </button>
+    </div>
   )
 }
 
@@ -180,14 +177,18 @@ export default function BlueprintGrid({
     }
   }
 
+  const gridStyle = {
+    gridTemplateColumns: `160px repeat(${columns.length}, 200px) auto`,
+  }
+
   return (
     <div className="blueprint-grid-wrapper">
-      <div className="blueprint-grid">
+      <div className="blueprint-grid" style={gridStyle}>
         {/* Swimlane labels column */}
         <div className="swimlane-labels">
           <div className="label-header">&nbsp;</div>
           {swimlanes.map((lane, idx) => (
-            <div key={lane}>
+            <Fragment key={lane}>
               {idx === LINE_OF_INTERACTION && (
                 <div className="divider-line interaction-line">
                   <span>Line of Interaction</span>
@@ -203,7 +204,7 @@ export default function BlueprintGrid({
               >
                 {lane}
               </div>
-            </div>
+            </Fragment>
           ))}
         </div>
 
