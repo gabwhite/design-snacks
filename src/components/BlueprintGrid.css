@@ -27,7 +27,7 @@
 }
 
 .swimlane-label {
-  height: 80px;
+  min-height: 80px;
   display: flex;
   align-items: center;
   padding: 0 12px;
@@ -104,13 +104,27 @@
   color: #c0392b;
 }
 
-/* Cells */
-.grid-cell {
-  height: 80px;
+/* Cell groups */
+.cell-group {
   border-bottom: 1px solid var(--border);
-  position: relative;
   background: var(--surface);
+  display: flex;
+  flex-direction: column;
+}
+
+.cell-group.pain-point-group {
+  background: var(--pain-point-bg);
+}
+
+/* Individual cell items */
+.grid-cell {
+  min-height: 80px;
+  position: relative;
   transition: background-color 0.15s;
+}
+
+.grid-cell + .grid-cell {
+  border-top: 1px dashed var(--border);
 }
 
 .grid-cell.pain-point-cell {
@@ -120,6 +134,7 @@
 .cell-input {
   width: 100%;
   height: 100%;
+  min-height: 80px;
   border: none;
   background: transparent;
   padding: 8px 28px 8px 8px;
@@ -139,10 +154,36 @@
   color: #767676;
 }
 
-.color-btn {
+.cell-actions {
   position: absolute;
   top: 4px;
   right: 4px;
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.grid-cell:hover .cell-actions {
+  opacity: 1;
+}
+
+.remove-item-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-secondary);
+  padding: 0 2px;
+  line-height: 1;
+}
+
+.remove-item-btn:hover {
+  color: #c0392b;
+}
+
+.color-btn {
   background: none;
   border: 1px solid var(--border);
   border-radius: 50%;
@@ -153,12 +194,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.4;
-  transition: opacity 0.15s;
-}
-
-.grid-cell:hover .color-btn {
-  opacity: 1;
 }
 
 .color-dot {
@@ -166,6 +201,27 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
+}
+
+.add-item-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--text-secondary);
+  padding: 2px 8px;
+  opacity: 0;
+  transition: opacity 0.15s;
+  align-self: flex-start;
+}
+
+.cell-group:hover .add-item-btn {
+  opacity: 0.5;
+}
+
+.add-item-btn:hover {
+  opacity: 1 !important;
+  color: var(--accent);
 }
 
 /* Divider lines */

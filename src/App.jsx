@@ -23,18 +23,23 @@ function createEmptyBlueprint() {
 }
 
 let columnIdCounter = 1
+let itemIdCounter = 1
 function createColumn() {
   const id = `col-${Date.now()}-${columnIdCounter++}`
   return {
     id,
     cells: SWIMLANE_LABELS.reduce((acc, lane) => {
-      acc[lane] = { text: '', color: null }
+      acc[lane] = [createItem()]
       return acc
     }, {}),
   }
 }
 
-export { createColumn, SWIMLANE_LABELS }
+function createItem() {
+  return { id: `item-${Date.now()}-${itemIdCounter++}`, text: '', color: null }
+}
+
+export { createColumn, createItem, SWIMLANE_LABELS }
 
 export default function App() {
   const [blueprint, setBlueprint] = useState(createEmptyBlueprint)
@@ -47,12 +52,50 @@ export default function App() {
     setBlueprint((b) => ({ ...b, columns: [...b.columns, createColumn()] }))
   }
 
-  const updateCell = (colId, lane, value) => {
+  const updateCellItem = (colId, lane, itemId, value) => {
     setBlueprint((b) => ({
       ...b,
       columns: b.columns.map((col) =>
         col.id === colId
-          ? { ...col, cells: { ...col.cells, [lane]: { ...col.cells[lane], ...value } } }
+          ? {
+              ...col,
+              cells: {
+                ...col.cells,
+                [lane]: col.cells[lane].map((item) =>
+                  item.id === itemId ? { ...item, ...value } : item
+                ),
+              },
+            }
+          : col
+      ),
+    }))
+  }
+
+  const addCellItem = (colId, lane) => {
+    setBlueprint((b) => ({
+      ...b,
+      columns: b.columns.map((col) =>
+        col.id === colId
+          ? { ...col, cells: { ...col.cells, [lane]: [...col.cells[lane], createItem()] } }
+          : col
+      ),
+    }))
+  }
+
+  const removeCellItem = (colId, lane, itemId) => {
+    setBlueprint((b) => ({
+      ...b,
+      columns: b.columns.map((col) =>
+        col.id === colId
+          ? {
+              ...col,
+              cells: {
+                ...col.cells,
+                [lane]: col.cells[lane].length > 1
+                  ? col.cells[lane].filter((item) => item.id !== itemId)
+                  : col.cells[lane],
+              },
+            }
           : col
       ),
     }))
@@ -121,7 +164,9 @@ export default function App() {
         columns={blueprint.columns}
         swimlanes={SWIMLANE_LABELS}
         onAddColumn={addColumn}
-        onUpdateCell={updateCell}
+        onUpdateCellItem={updateCellItem}
+        onAddCellItem={addCellItem}
+        onRemoveCellItem={removeCellItem}
         onDeleteColumn={deleteColumn}
         onReorderColumns={reorderColumns}
       />
