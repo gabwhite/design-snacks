@@ -30,6 +30,7 @@ function createColumn() {
   const id = `col-${Date.now()}-${columnIdCounter++}`
   return {
     id,
+    name: '',
     cells: SWIMLANE_LABELS.reduce((acc, lane) => {
       acc[lane] = [createItem()]
       return acc
@@ -103,6 +104,15 @@ export default function App() {
     }))
   }
 
+  const updateColumnName = (colId, name) => {
+    setBlueprint((b) => ({
+      ...b,
+      columns: b.columns.map((col) =>
+        col.id === colId ? { ...col, name } : col
+      ),
+    }))
+  }
+
   const deleteColumn = (colId) => {
     setBlueprint((b) => ({
       ...b,
@@ -169,6 +179,7 @@ export default function App() {
         onUpdateCellItem={updateCellItem}
         onAddCellItem={addCellItem}
         onRemoveCellItem={removeCellItem}
+        onUpdateColumnName={updateColumnName}
         onDeleteColumn={deleteColumn}
         onReorderColumns={reorderColumns}
       />

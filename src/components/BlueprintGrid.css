@@ -89,8 +89,26 @@
   color: var(--text-secondary);
 }
 
-.column-number {
+.column-name-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid transparent;
+  background: transparent;
   font-weight: 600;
+  font-size: 13px;
+  text-align: center;
+  padding: 2px 4px;
+  color: inherit;
+  font-family: inherit;
+}
+
+.column-name-input:hover {
+  border-bottom-color: var(--border);
+}
+
+.column-name-input:focus {
+  outline: none;
+  border-bottom-color: var(--primary);
 }
 
 .drag-handle {

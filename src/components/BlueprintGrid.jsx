@@ -20,7 +20,7 @@ import './BlueprintGrid.css'
 const LINE_OF_INTERACTION = 2 // after Customer Actions
 const LINE_OF_VISIBILITY = 3  // after Frontstage
 
-function SortableColumn({ column, swimlanes, onUpdateCellItem, onAddCellItem, onRemoveCellItem, onDeleteColumn, columnIndex }) {
+function SortableColumn({ column, swimlanes, onUpdateCellItem, onAddCellItem, onRemoveCellItem, onUpdateColumnName, onDeleteColumn, columnIndex }) {
   const {
     attributes,
     listeners,
@@ -39,7 +39,12 @@ function SortableColumn({ column, swimlanes, onUpdateCellItem, onAddCellItem, on
   return (
     <div ref={setNodeRef} style={style} className="grid-column">
       <div className="column-header">
-        <span className="column-number">Step {columnIndex + 1}</span>
+        <input
+          className="column-name-input"
+          value={column.name}
+          onChange={(e) => onUpdateColumnName(column.id, e.target.value)}
+          placeholder={`Step ${columnIndex + 1}`}
+        />
         <button
           className="drag-handle"
           {...attributes}
@@ -156,6 +161,7 @@ export default function BlueprintGrid({
   onUpdateCellItem,
   onAddCellItem,
   onRemoveCellItem,
+  onUpdateColumnName,
   onDeleteColumn,
   onReorderColumns,
 }) {
@@ -221,6 +227,7 @@ export default function BlueprintGrid({
                 onUpdateCellItem={onUpdateCellItem}
                 onAddCellItem={onAddCellItem}
                 onRemoveCellItem={onRemoveCellItem}
+                onUpdateColumnName={onUpdateColumnName}
                 onDeleteColumn={onDeleteColumn}
                 columnIndex={idx}
               />
