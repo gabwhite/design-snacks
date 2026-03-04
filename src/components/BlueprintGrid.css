@@ -27,6 +27,9 @@
   display: flex;
   align-items: center;
   padding: 0 12px;
+  background: var(--swimlane-label-bg);
+  border-bottom: 1px solid var(--border);
+  border-right: 2px solid var(--border);
 }
 
 .swimlane-label {
@@ -62,7 +65,7 @@
   justify-content: center;
   gap: 8px;
   padding: 0 8px;
-  background: var(--surface);
+  background: var(--swimlane-label-bg);
   border-bottom: 1px solid var(--border);
   font-size: 12px;
   color: var(--text-secondary);
