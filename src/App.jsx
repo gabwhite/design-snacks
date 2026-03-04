@@ -17,7 +17,7 @@ function createEmptyBlueprint() {
   return {
     title: 'Untitled Blueprint',
     scenario: '',
-    columns: [createColumn()],
+    columns: Array.from({ length: 5 }, () => createColumn()),
     parkingLot: [],
   }
 }
