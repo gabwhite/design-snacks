@@ -1,0 +1,5 @@
+.app {
+  padding: 24px;
+  max-width: 100%;
+  overflow-x: auto;
+}

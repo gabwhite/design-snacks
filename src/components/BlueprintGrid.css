@@ -1,0 +1,236 @@
+.blueprint-grid-wrapper {
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.blueprint-grid {
+  display: flex;
+  gap: 0;
+  min-width: fit-content;
+}
+
+/* Swimlane labels */
+.swimlane-labels {
+  flex-shrink: 0;
+  width: 160px;
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--bg);
+}
+
+.label-header {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.swimlane-label {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--swimlane-label-bg);
+  border-bottom: 1px solid var(--border);
+  border-right: 2px solid var(--border);
+}
+
+.swimlane-label.pain-point-label {
+  background: var(--pain-point-bg);
+  color: #c0392b;
+}
+
+/* Grid columns */
+.grid-column {
+  flex-shrink: 0;
+  width: 200px;
+  min-width: 200px;
+  border-right: 1px solid var(--border);
+}
+
+.column-header {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 8px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.column-number {
+  font-weight: 600;
+}
+
+.drag-handle {
+  cursor: grab;
+  background: none;
+  border: none;
+  padding: 2px 4px;
+  font-size: 16px;
+  color: var(--text-secondary);
+  opacity: 0.5;
+  line-height: 1;
+}
+
+.drag-handle:hover {
+  opacity: 1;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.delete-column-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--text-secondary);
+  opacity: 0.4;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.delete-column-btn:hover {
+  opacity: 1;
+  color: #c0392b;
+}
+
+/* Cells */
+.grid-cell {
+  height: 80px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  background: var(--surface);
+  transition: background-color 0.15s;
+}
+
+.grid-cell.pain-point-cell {
+  background: var(--pain-point-bg);
+}
+
+.cell-input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  padding: 8px 28px 8px 8px;
+  font-size: 13px;
+  font-family: inherit;
+  resize: none;
+  outline: none;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.cell-input:focus {
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+.cell-input::placeholder {
+  color: #bbb;
+}
+
+.color-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.4;
+  transition: opacity 0.15s;
+}
+
+.grid-cell:hover .color-btn {
+  opacity: 1;
+}
+
+.color-dot {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+/* Divider lines */
+.divider-line {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.interaction-line {
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 6px,
+    #999 6px,
+    #999 12px
+  );
+  color: #666;
+}
+
+.interaction-line span,
+.visibility-line span {
+  background: var(--bg);
+  padding: 0 8px;
+}
+
+.visibility-line {
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 6px,
+    #999 6px,
+    #999 12px
+  );
+  color: #666;
+}
+
+/* Add column */
+.add-column {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 40px;
+}
+
+.add-column-btn {
+  width: 40px;
+  height: 80px;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  background: transparent;
+  cursor: pointer;
+  font-size: 24px;
+  color: var(--text-secondary);
+  margin-left: 4px;
+  transition: all 0.15s;
+}
+
+.add-column-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(74, 144, 217, 0.05);
+}
