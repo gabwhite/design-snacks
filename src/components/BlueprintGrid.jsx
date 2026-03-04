@@ -57,7 +57,7 @@ function SortableColumn({ column, swimlanes, onUpdateCellItem, onAddCellItem, on
         </button>
       </div>
       {swimlanes.map((lane, laneIdx) => (
-        <Fragment key={lane}>
+        <Fragment key={lane.id}>
           {laneIdx === LINE_OF_INTERACTION && (
             <div className="divider-line" />
           )}
@@ -66,11 +66,11 @@ function SortableColumn({ column, swimlanes, onUpdateCellItem, onAddCellItem, on
           )}
           <CellGroup
             lane={lane}
-            items={column.cells[lane]}
-            onUpdateItem={(itemId, val) => onUpdateCellItem(column.id, lane, itemId, val)}
-            onAddItem={() => onAddCellItem(column.id, lane)}
-            onRemoveItem={(itemId) => onRemoveCellItem(column.id, lane, itemId)}
-            isPainPoint={lane === 'Pain Points'}
+            items={column.cells[lane.id]}
+            onUpdateItem={(itemId, val) => onUpdateCellItem(column.id, lane.id, itemId, val)}
+            onAddItem={() => onAddCellItem(column.id, lane.id)}
+            onRemoveItem={(itemId) => onRemoveCellItem(column.id, lane.id, itemId)}
+            isPainPoint={lane.id === 'Pain Points'}
           />
         </Fragment>
       ))}
@@ -92,7 +92,7 @@ function CellGroup({ lane, items, onUpdateItem, onAddItem, onRemoveItem, isPainP
           onRemove={() => onRemoveItem(item.id)}
         />
       ))}
-      <button className="add-item-btn" onClick={onAddItem} title={`Add ${lane.toLowerCase()}`}>
+      <button className="add-item-btn" onClick={onAddItem} title={`Add ${lane.label.toLowerCase()}`}>
         +
       </button>
     </div>
@@ -111,7 +111,7 @@ function CellItem({ item, lane, isPainPoint, canRemove, onChange, onRemove }) {
         className="cell-input"
         value={item.text}
         onChange={(e) => onChange({ text: e.target.value })}
-        placeholder={isPainPoint ? 'Friction, issue...' : `${lane}...`}
+        placeholder={isPainPoint ? 'Friction, issue...' : `${lane.label}...`}
         rows={2}
       />
       <div className="cell-actions">
@@ -174,7 +174,7 @@ export default function BlueprintGrid({
   }
 
   const gridStyle = {
-    gridTemplateColumns: `160px repeat(${columns.length}, 200px) auto`,
+    gridTemplateColumns: `200px repeat(${columns.length}, 200px) auto`,
   }
 
   return (
@@ -184,7 +184,7 @@ export default function BlueprintGrid({
         <div className="swimlane-labels">
           <div className="label-header">&nbsp;</div>
           {swimlanes.map((lane, idx) => (
-            <Fragment key={lane}>
+            <Fragment key={lane.id}>
               {idx === LINE_OF_INTERACTION && (
                 <div className="divider-label">Line of Interaction</div>
               )}
@@ -192,9 +192,12 @@ export default function BlueprintGrid({
                 <div className="divider-label">Line of Visibility</div>
               )}
               <div
-                className={`swimlane-label ${lane === 'Pain Points' ? 'pain-point-label' : ''}`}
+                className={`swimlane-label ${lane.id === 'Pain Points' ? 'pain-point-label' : ''}`}
               >
-                {lane}
+                <div>
+                  <div className="swimlane-label-name">{lane.label}</div>
+                  <div className="swimlane-label-desc">{lane.description}</div>
+                </div>
               </div>
             </Fragment>
           ))}

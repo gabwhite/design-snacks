@@ -4,14 +4,16 @@ import ParkingLot from './components/ParkingLot'
 import Toolbar from './components/Toolbar'
 import './App.css'
 
-const SWIMLANE_LABELS = [
-  'Touchpoints',
-  'Customer Actions',
-  'Frontstage',
-  'Backstage',
-  'Support Processes',
-  'Pain Points',
+const SWIMLANES = [
+  { id: 'Touchpoints', label: 'Touchpoints', description: 'Channels or interfaces the customer interacts with' },
+  { id: 'Customer Actions', label: 'Customer Actions', description: 'What the customer does at each step' },
+  { id: 'Frontstage', label: 'Frontstage', description: 'Employee actions visible to the customer' },
+  { id: 'Backstage', label: 'Backstage', description: 'Employee actions hidden from the customer' },
+  { id: 'Support Processes', label: 'Support Processes', description: 'Internal systems, tools, or policies that enable the service' },
+  { id: 'Pain Points', label: 'Pain Points', description: 'Friction, failures, or frustrations' },
 ]
+
+const SWIMLANE_LABELS = SWIMLANES.map((s) => s.id)
 
 function createEmptyBlueprint() {
   return {
@@ -162,7 +164,7 @@ export default function App() {
 
       <BlueprintGrid
         columns={blueprint.columns}
-        swimlanes={SWIMLANE_LABELS}
+        swimlanes={SWIMLANES}
         onAddColumn={addColumn}
         onUpdateCellItem={updateCellItem}
         onAddCellItem={addCellItem}

@@ -45,9 +45,27 @@
   border-right: 2px solid var(--border);
 }
 
+.swimlane-label-name {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.swimlane-label-desc {
+  font-weight: 400;
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.3;
+  margin-top: 2px;
+}
+
 .swimlane-label.pain-point-label {
   background: var(--pain-point-bg);
   color: #c0392b;
+}
+
+.pain-point-label .swimlane-label-desc {
+  color: #c0392b;
+  opacity: 0.7;
 }
 
 /* Grid columns */
