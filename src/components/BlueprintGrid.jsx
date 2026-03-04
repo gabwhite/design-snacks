@@ -59,14 +59,10 @@ function SortableColumn({ column, swimlanes, onUpdateCellItem, onAddCellItem, on
       {swimlanes.map((lane, laneIdx) => (
         <Fragment key={lane}>
           {laneIdx === LINE_OF_INTERACTION && (
-            <div className="divider-line interaction-line">
-              <span>Line of Interaction</span>
-            </div>
+            <div className="divider-line" />
           )}
           {laneIdx === LINE_OF_VISIBILITY && (
-            <div className="divider-line visibility-line">
-              <span>Line of Visibility</span>
-            </div>
+            <div className="divider-line" />
           )}
           <CellGroup
             lane={lane}
@@ -190,14 +186,10 @@ export default function BlueprintGrid({
           {swimlanes.map((lane, idx) => (
             <Fragment key={lane}>
               {idx === LINE_OF_INTERACTION && (
-                <div className="divider-line interaction-line">
-                  <span>Line of Interaction</span>
-                </div>
+                <div className="divider-label">Line of Interaction</div>
               )}
               {idx === LINE_OF_VISIBILITY && (
-                <div className="divider-line visibility-line">
-                  <span>Line of Visibility</span>
-                </div>
+                <div className="divider-label">Line of Visibility</div>
               )}
               <div
                 className={`swimlane-label ${lane === 'Pain Points' ? 'pain-point-label' : ''}`}
