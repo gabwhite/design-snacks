@@ -136,7 +136,7 @@
 }
 
 .cell-input::placeholder {
-  color: #bbb;
+  color: #767676;
 }
 
 .color-btn {
@@ -232,5 +232,5 @@
 .add-column-btn:hover {
   border-color: var(--accent);
   color: var(--accent);
-  background: rgba(74, 144, 217, 0.05);
+  background: rgba(46, 111, 173, 0.05);
 }
