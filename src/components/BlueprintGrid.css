@@ -89,26 +89,40 @@
   color: var(--text-secondary);
 }
 
-.column-name-input {
+.column-name-label {
   width: 100%;
-  border: none;
-  border-bottom: 1px solid transparent;
-  background: transparent;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
   font-weight: 600;
   font-size: 13px;
   text-align: center;
   padding: 2px 4px;
   color: inherit;
   font-family: inherit;
+  cursor: text;
+  min-height: 24px;
+  line-height: 1.4;
+  word-break: break-word;
 }
 
-.column-name-input:hover {
-  border-bottom-color: var(--border);
+.column-name-label:hover {
+  border-color: var(--border);
 }
 
-.column-name-input:focus {
+.column-name-input {
+  width: 100%;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  background: var(--surface, #fff);
+  font-weight: 600;
+  font-size: 13px;
+  text-align: center;
+  padding: 2px 4px;
+  color: inherit;
+  font-family: inherit;
   outline: none;
-  border-bottom-color: var(--primary);
+  min-height: 24px;
 }
 
 .drag-handle {

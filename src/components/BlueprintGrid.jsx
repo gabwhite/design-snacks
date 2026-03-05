@@ -1,4 +1,4 @@
-import { useState, Fragment } from 'react'
+import { useState, useRef, useEffect, Fragment } from 'react'
 import {
   DndContext,
   closestCenter,
@@ -20,6 +20,46 @@ import './BlueprintGrid.css'
 const LINE_OF_INTERACTION = 2 // after Customer Actions
 const LINE_OF_VISIBILITY = 3  // after Frontstage
 
+function EditableColumnName({ name, columnId, onUpdateColumnName }) {
+  const [editing, setEditing] = useState(false)
+  const inputRef = useRef(null)
+
+  useEffect(() => {
+    if (editing && inputRef.current) {
+      inputRef.current.focus()
+      inputRef.current.select()
+    }
+  }, [editing])
+
+  if (editing) {
+    return (
+      <input
+        ref={inputRef}
+        className="column-name-input"
+        value={name}
+        onChange={(e) => onUpdateColumnName(columnId, e.target.value)}
+        onBlur={() => setEditing(false)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === 'Escape') {
+            setEditing(false)
+          }
+        }}
+        aria-label="Step name"
+      />
+    )
+  }
+
+  return (
+    <button
+      className="column-name-label"
+      onClick={() => setEditing(true)}
+      title="Click to rename step"
+    >
+      {name || 'Untitled step'}
+    </button>
+  )
+}
+
 function SortableColumn({ column, swimlanes, onUpdateCellItem, onAddCellItem, onRemoveCellItem, onUpdateColumnName, onDeleteColumn, columnIndex }) {
   const {
     attributes,
@@ -39,11 +79,10 @@ function SortableColumn({ column, swimlanes, onUpdateCellItem, onAddCellItem, on
   return (
     <div ref={setNodeRef} style={style} className="grid-column">
       <div className="column-header">
-        <input
-          className="column-name-input"
-          value={column.name}
-          onChange={(e) => onUpdateColumnName(column.id, e.target.value)}
-          placeholder={`Step ${columnIndex + 1}`}
+        <EditableColumnName
+          name={column.name}
+          columnId={column.id}
+          onUpdateColumnName={onUpdateColumnName}
         />
         <button
           className="drag-handle"

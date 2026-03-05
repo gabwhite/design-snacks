@@ -19,18 +19,18 @@ function createEmptyBlueprint() {
   return {
     title: 'Untitled Blueprint',
     scenario: '',
-    columns: Array.from({ length: 5 }, () => createColumn()),
+    columns: Array.from({ length: 5 }, (_, i) => createColumn(`Step ${i + 1}`)),
     parkingLot: [],
   }
 }
 
 let columnIdCounter = 1
 let itemIdCounter = 1
-function createColumn() {
+function createColumn(name) {
   const id = `col-${Date.now()}-${columnIdCounter++}`
   return {
     id,
-    name: '',
+    name: name || '',
     cells: SWIMLANE_LABELS.reduce((acc, lane) => {
       acc[lane] = [createItem()]
       return acc
@@ -52,7 +52,10 @@ export default function App() {
   const updateScenario = (scenario) => setBlueprint((b) => ({ ...b, scenario }))
 
   const addColumn = () => {
-    setBlueprint((b) => ({ ...b, columns: [...b.columns, createColumn()] }))
+    setBlueprint((b) => ({
+      ...b,
+      columns: [...b.columns, createColumn(`Step ${b.columns.length + 1}`)],
+    }))
   }
 
   const updateCellItem = (colId, lane, itemId, value) => {
