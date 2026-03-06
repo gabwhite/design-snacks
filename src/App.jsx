@@ -141,6 +141,36 @@ export default function App() {
     URL.revokeObjectURL(url)
   }
 
+  const exportCSV = () => {
+    const escapeCell = (text) => {
+      if (text.includes(',') || text.includes('"') || text.includes('\n')) {
+        return `"${text.replace(/"/g, '""')}"`
+      }
+      return text
+    }
+    const header = ['', ...blueprint.columns.map((c) => escapeCell(c.name || 'Untitled step'))]
+    const rows = [header.join(',')]
+    for (const lane of SWIMLANE_LABELS) {
+      const row = [escapeCell(lane)]
+      for (const col of blueprint.columns) {
+        const cellText = col.cells[lane]
+          .map((item) => item.text)
+          .filter(Boolean)
+          .join('\n')
+        row.push(escapeCell(cellText))
+      }
+      rows.push(row.join(','))
+    }
+    const csv = rows.join('\r\n')
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `${blueprint.title.replace(/\s+/g, '-').toLowerCase()}.csv`
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
   const importJSON = (e) => {
     const file = e.target.files[0]
     if (!file) return
@@ -164,7 +194,8 @@ export default function App() {
         scenario={blueprint.scenario}
         onTitleChange={updateTitle}
         onScenarioChange={updateScenario}
-        onExport={exportJSON}
+        onExportJSON={exportJSON}
+        onExportCSV={exportCSV}
         onImport={() => fileInputRef.current?.click()}
       />
       <input

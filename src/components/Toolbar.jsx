@@ -5,7 +5,8 @@ export default function Toolbar({
   scenario,
   onTitleChange,
   onScenarioChange,
-  onExport,
+  onExportJSON,
+  onExportCSV,
   onImport,
 }) {
   return (
@@ -28,7 +29,10 @@ export default function Toolbar({
         <button className="btn btn-secondary" onClick={onImport}>
           Import JSON
         </button>
-        <button className="btn btn-primary" onClick={onExport}>
+        <button className="btn btn-secondary" onClick={onExportCSV}>
+          Export CSV
+        </button>
+        <button className="btn btn-primary" onClick={onExportJSON}>
           Export JSON
         </button>
       </div>
