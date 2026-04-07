@@ -1,5 +1,11 @@
 .app {
-  padding: 24px;
+  padding: 32px 40px;
   max-width: 100%;
   overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .app {
+    padding: 20px;
+  }
 }

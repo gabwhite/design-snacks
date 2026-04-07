@@ -2,66 +2,69 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: 24px;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
   flex-wrap: wrap;
 }
 
 .toolbar-left {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   flex: 1;
   min-width: 0;
 }
 
 .toolbar-title {
-  font-size: 22px;
-  font-weight: 600;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   border: none;
   background: transparent;
   color: var(--text);
   outline: none;
-  padding: 4px 0;
-  border-bottom: 2px solid transparent;
+  padding: 0;
   width: 100%;
 }
 
-.toolbar-title:focus {
-  border-bottom-color: var(--accent);
+.toolbar-title::placeholder {
+  color: var(--text-tertiary);
 }
 
 .toolbar-scenario {
-  font-size: 14px;
+  font-size: 15px;
   border: none;
   background: transparent;
   color: var(--text-secondary);
   outline: none;
-  padding: 2px 0;
+  padding: 0;
   width: 100%;
-  border-bottom: 1px solid transparent;
+  margin-top: 2px;
 }
 
-.toolbar-scenario:focus {
-  border-bottom-color: var(--accent);
+.toolbar-scenario::placeholder {
+  color: var(--text-tertiary);
 }
 
 .toolbar-actions {
   display: flex;
   gap: 8px;
   align-items: center;
-  padding-top: 4px;
+  padding-top: 6px;
 }
 
 .btn {
   padding: 8px 16px;
   border-radius: var(--radius);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   cursor: pointer;
   font-size: 13px;
   font-weight: 500;
   font-family: inherit;
-  transition: all 0.15s;
+  transition: all 0.12s ease;
+  white-space: nowrap;
 }
 
 .btn-primary {
@@ -71,7 +74,7 @@
 }
 
 .btn-primary:hover {
-  opacity: 0.9;
+  background: #333;
 }
 
 .btn-secondary {
@@ -80,5 +83,5 @@
 }
 
 .btn-secondary:hover {
-  background: #f0f0f0;
+  background: var(--accent-subtle);
 }
