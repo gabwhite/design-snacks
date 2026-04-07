@@ -7,7 +7,7 @@
   display: grid;
   /* grid-template-columns set via inline style */
   /* header, lane0, lane1, divider, lane2, divider, lane3, lane4, lane5 */
-  grid-template-rows: 44px auto auto 28px auto 28px auto auto auto;
+  grid-template-rows: auto auto auto 28px auto 28px auto auto auto;
   min-width: fit-content;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius);
@@ -26,7 +26,7 @@
 }
 
 .label-header {
-  height: 44px;
+  min-height: 44px;
   display: flex;
   align-items: center;
   padding: 0 16px;
@@ -83,7 +83,7 @@
 }
 
 .column-header {
-  height: 44px;
+  min-height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
